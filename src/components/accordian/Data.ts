@@ -1,4 +1,10 @@
-const Data = [
+interface dataProp {
+  id: number
+  question: string
+  answer: string
+}
+
+const Data : dataProp[] = [
     {
       id: 1,
       question: 'What is your name?',
