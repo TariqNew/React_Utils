@@ -1,26 +1,24 @@
 import { useState } from "react";
 import QRCode from "react-qr-code";
 
-
-export default function QrCode(){
-
-  const [input, setInputValue] = useState<string>('')
-  const [qrcode, setQrcodeValue] = useState<string>('')
+export default function QrCode() {
+  const [input, setInputValue] = useState<string>("");
+  const [qrcode, setQrcodeValue] = useState<string>("");
 
   function handleGenerate() {
-    setQrcodeValue(input)
-    setInputValue('')
+    setQrcodeValue(input.trim());
+    setInputValue("");
   }
 
   return (
-    <div className="flex items-center flex-col my-10">
-      <div className="font-bold text-xl mb-3">
-        <h1>QR Code Generator</h1>
-      </div>
-  
-      <div className="flex mb-2">
+    <div className="flex flex-col items-center my-10 px-4 w-full max-w-md mx-auto">
+      <h1 className="font-bold text-xl mb-4">QR Code Generator</h1>
+
+      <div className="flex w-full mb-4">
+        <label htmlFor="qr-input" className="sr-only">QR Code Text</label>
         <input
-          className="border border-gray-300 p-2 rounded-l-md"
+          id="qr-input"
+          className="border border-gray-300 p-2 flex-grow rounded-l-md"
           type="text"
           placeholder="Enter the value"
           value={input}
@@ -28,16 +26,18 @@ export default function QrCode(){
         />
         <button
           className="bg-blue-600 text-white px-4 py-2 rounded-r-md disabled:bg-gray-300"
-          disabled={!input.trim()} // only disables when input is empty
+          disabled={!input.trim()}
           onClick={handleGenerate}
         >
           Generate
         </button>
       </div>
-  
-      <div>
-        <QRCode id="qr-code-value" value={qrcode} />
-      </div>
+
+      {qrcode && (
+        <div className="mt-4 p-4 border border-gray-300 rounded-md bg-white">
+          <QRCode id="qr-code-value" value={qrcode} />
+        </div>
+      )}
     </div>
-  );  
+  );
 }
